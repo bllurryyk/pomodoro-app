@@ -118,6 +118,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                         IconButton(
                           onPressed: _mainButtonPressed,
                           icon: mainBtn,
+                          iconSize: 50,
                           color: Colors.white,
                         ),
                         const SizedBox(
@@ -126,6 +127,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                         IconButton(
                           onPressed: _resetButtonPressed,
                           icon: _btnStop,
+                          iconSize: 50,
                           color: Colors.white,
                         ),
                         const Spacer(),

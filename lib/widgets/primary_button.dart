@@ -23,7 +23,17 @@ class PrimaryButton extends StatelessWidget {
         height: MediaQuery.of(context).size.height * 0.08,
         width: double.infinity,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16), color: Colors.red),
+          borderRadius: BorderRadius.circular(16),
+          color: Colors.red,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
         child: Text(
           buttonText,
           style: const TextStyle(
