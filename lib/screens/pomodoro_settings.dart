@@ -13,10 +13,10 @@ class PomodoroSettingsScreen extends StatelessWidget {
         backgroundColor: Colors.red,
         shadowColor: Colors.transparent,
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             SizedBox(
               height: 70,
             ),
