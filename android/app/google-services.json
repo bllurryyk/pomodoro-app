@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "49864619000",
-    "project_id": "toolmato",
-    "storage_bucket": "toolmato.appspot.com"
+    "project_number": "570683347045",
+    "project_id": "toolmato-4e4b0",
+    "storage_bucket": "toolmato-4e4b0.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:49864619000:android:1fb765e3b2c4babe901c0d",
+        "mobilesdk_app_id": "1:570683347045:android:d49be86ce0aa9aa417368c",
         "android_client_info": {
           "package_name": "com.example.pomodoro"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "49864619000-bcoqtcvfvkbfh6uj8htcl6tvpv63k0on.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCOtqgEQEJDdinMLmCM5ONKmtTtEfEiClw"
+          "current_key": "AIzaSyD_zG1WMnEVLF81e7M8VXNuFGMLAaeeMqY"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "49864619000-bcoqtcvfvkbfh6uj8htcl6tvpv63k0on.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
