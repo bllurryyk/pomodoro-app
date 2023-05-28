@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pomodoro/screens/login.dart';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:pomodoro/firebase/widget_tree.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Pomodoro',
       theme: ThemeData(fontFamily: 'Poppins'),
-      home: const WidgetTree(),
+      home: const LogInScreen(),
     );
   }
 }
