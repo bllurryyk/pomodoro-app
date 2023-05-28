@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "570683347045",
-    "project_id": "toolmato-4e4b0",
-    "storage_bucket": "toolmato-4e4b0.appspot.com"
+    "project_number": "391681745345",
+    "project_id": "toolmato-9552a",
+    "storage_bucket": "toolmato-9552a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:570683347045:android:d49be86ce0aa9aa417368c",
+        "mobilesdk_app_id": "1:391681745345:android:fa0fbd88f4c1f7d266cf40",
         "android_client_info": {
           "package_name": "com.example.pomodoro"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyD_zG1WMnEVLF81e7M8VXNuFGMLAaeeMqY"
+          "current_key": "AIzaSyBJAtqYkn7WIYm1MJ8je5JxmlyT8yVLMXk"
         }
       ],
       "services": {
