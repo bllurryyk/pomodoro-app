@@ -1,51 +1,91 @@
 import 'package:flutter/material.dart';
 import 'package:pomodoro/screens/pomodoro.dart';
+import 'package:pomodoro/utils/constants.dart';
 import 'package:pomodoro/widgets/pomodoro_form.dart';
-import 'package:pomodoro/widgets/primary_button.dart';
+import 'package:pomodoro/widgets/primary_button_on_pressed.dart';
 
 class PomodoroSettingsScreen extends StatelessWidget {
   const PomodoroSettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController cyclesController = TextEditingController();
+    final TextEditingController workTimeController = TextEditingController();
+    final TextEditingController shortBreakTimeController =
+        TextEditingController();
+    final TextEditingController longBreakTimeController =
+        TextEditingController();
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.red,
-        shadowColor: Colors.transparent,
-      ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 70,
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 30),
               child: Text(
-                'Configurações',
+                'Pomodoro',
                 style: TextStyle(
                     color: Colors.red,
                     fontSize: 32,
                     fontWeight: FontWeight.w700),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30),
-              child: PomodoroSettingsForm(),
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: PomodoroSettingsForm(
+                cyclesController: cyclesController,
+                workTimeController: workTimeController,
+                shortBreakTimeController: shortBreakTimeController,
+                longBreakTimeController: longBreakTimeController,
+              ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30),
-              child: PrimaryButton(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: PrimaryButtonOnPressed(
                 buttonText: 'Salvar',
-                routeWidget: PomodoroScreen(),
+                onPressed: () {
+                  if (cyclesController.text.isNotEmpty) {
+                    PomodoroSettings.updateSettings(
+                      newCyclesController: int.parse(cyclesController.text),
+                    );
+                  }
+                  if (workTimeController.text.isNotEmpty) {
+                    PomodoroSettings.updateSettings(
+                      newWorkTime: int.parse(workTimeController.text) * 60,
+                    );
+                  }
+                  if (shortBreakTimeController.text.isNotEmpty) {
+                    PomodoroSettings.updateSettings(
+                      newShortBreakTime:
+                          int.parse(shortBreakTimeController.text) * 60,
+                    );
+                  }
+                  if (longBreakTimeController.text.isNotEmpty) {
+                    PomodoroSettings.updateSettings(
+                      newLongBreakTime:
+                          int.parse(longBreakTimeController.text) * 60,
+                    );
+                  }
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PomodoroScreen()),
+                  );
+                },
               ),
+            ),
+            const SizedBox(
+              height: 20,
             ),
           ],
         ),

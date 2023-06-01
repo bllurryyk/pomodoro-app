@@ -19,7 +19,7 @@ const _btnPause = Icon(Icons.pause_rounded);
 const _btnStop = Icon(Icons.stop_rounded);
 
 class _PomodoroScreenState extends State<PomodoroScreen> {
-  int remainingTime = pomodoroTotalTime;
+  int remainingTime = PomodoroSettings.workTime;
   Icon mainBtn = _btnPlay;
   PomodoroStatus pomodoroStatus = PomodoroStatus.pausedPomodoro;
   Timer? _timer;
@@ -74,7 +74,8 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                       radius: 220.0,
                       lineWidth: 5.0,
                       percent: _getPomodoroPercentage(),
-                      progressColor: statusColor[pomodoroStatus],
+                      progressColor:
+                          PomodoroSettings.statusColor[pomodoroStatus],
                       backgroundColor: Colors.red,
                       circularStrokeCap: CircularStrokeCap.round,
                       center: Center(
@@ -92,7 +93,8 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                               height: 8,
                             ),
                             Text(
-                              statusDescription[pomodoroStatus]!,
+                              PomodoroSettings
+                                  .statusDescription[pomodoroStatus]!,
                               style: const TextStyle(
                                 fontSize: 15,
                                 color: Colors.white,
@@ -106,8 +108,9 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                       height: 10,
                     ),
                     ProgressIcons(
-                      total: pomodoriPerSet,
-                      done: pomodoroNum - (setNum * pomodoriPerSet),
+                      total: PomodoroSettings.cyclesController,
+                      done: pomodoroNum -
+                          (setNum * PomodoroSettings.cyclesController),
                     ),
                     const SizedBox(
                       height: 10,
@@ -162,25 +165,25 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
 
     switch (pomodoroStatus) {
       case PomodoroStatus.runningPomodoro:
-        totalTime = pomodoroTotalTime;
+        totalTime = PomodoroSettings.workTime;
         break;
       case PomodoroStatus.pausedPomodoro:
-        totalTime = pomodoroTotalTime;
+        totalTime = PomodoroSettings.workTime;
         break;
       case PomodoroStatus.runningShortBreak:
-        totalTime = shortBreakTime;
+        totalTime = PomodoroSettings.shortBreakTime;
         break;
       case PomodoroStatus.pausedShortBreak:
-        totalTime = shortBreakTime;
+        totalTime = PomodoroSettings.shortBreakTime;
         break;
       case PomodoroStatus.runningLongBreak:
-        totalTime = longBreakTime;
+        totalTime = PomodoroSettings.longBreakTime;
         break;
       case PomodoroStatus.pausedLongBreak:
-        totalTime = longBreakTime;
+        totalTime = PomodoroSettings.longBreakTime;
         break;
       case PomodoroStatus.setFinished:
-        totalTime = pomodoroTotalTime;
+        totalTime = PomodoroSettings.workTime;
         break;
     }
 
@@ -237,12 +240,12 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
             _playSound(),
             pomodoroNum++,
             _cancelTimer(),
-            if (pomodoroNum % pomodoriPerSet == 0)
+            if (pomodoroNum % PomodoroSettings.cyclesController == 0)
               {
                 pomodoroStatus = PomodoroStatus.pausedLongBreak,
                 setState(
                   () {
-                    remainingTime = longBreakTime;
+                    remainingTime = PomodoroSettings.longBreakTime;
                     mainBtn = _btnPlay;
                   },
                 ),
@@ -252,7 +255,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                 pomodoroStatus = PomodoroStatus.pausedShortBreak,
                 setState(
                   () {
-                    remainingTime = shortBreakTime;
+                    remainingTime = PomodoroSettings.shortBreakTime;
                     mainBtn = _btnPlay;
                   },
                 ),
@@ -283,7 +286,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
     pomodoroStatus = PomodoroStatus.pausedPomodoro;
     setState(() {
       mainBtn = _btnPlay;
-      remainingTime = pomodoroTotalTime;
+      remainingTime = PomodoroSettings.workTime;
     });
   }
 
@@ -323,7 +326,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
           );
         } else {
           _playSound();
-          remainingTime = pomodoroTotalTime;
+          remainingTime = PomodoroSettings.workTime;
           _cancelTimer();
           pomodoroStatus = PomodoroStatus.pausedPomodoro;
           setState(() {
@@ -353,7 +356,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
           );
         } else {
           _playSound();
-          remainingTime = pomodoroTotalTime;
+          remainingTime = PomodoroSettings.workTime;
           _cancelTimer();
           pomodoroStatus = PomodoroStatus.setFinished;
           setState(() {

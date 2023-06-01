@@ -40,17 +40,18 @@ class ResetPasswordScreen extends StatelessWidget {
               height: 40,
             ),
             GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LogInScreen(),
-                      ));
-                },
-                child: const PrimaryButton(
-                  buttonText: 'Redefinir senha',
-                  routeWidget: LogInScreen(),
-                )),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LogInScreen(),
+                    ));
+              },
+              child: const PrimaryButton(
+                buttonText: 'Redefinir senha',
+                routeWidget: LogInScreen(),
+              ),
+            ),
           ],
         ),
       ),

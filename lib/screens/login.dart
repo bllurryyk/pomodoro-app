@@ -11,6 +11,9 @@ class LogInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -64,7 +67,10 @@ class LogInScreen extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              const LogInForm(),
+              LogInForm(
+                emailController: emailController,
+                passwordController: passwordController,
+              ),
               const SizedBox(
                 height: 20,
               ),
@@ -97,13 +103,13 @@ class LogInScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              Text(
+              const Text(
                 'Ou faça o login com:',
-                style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500)
-                    .copyWith(color: Colors.black),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
               const SizedBox(
                 height: 20,

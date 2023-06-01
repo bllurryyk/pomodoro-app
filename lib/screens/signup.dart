@@ -11,6 +11,14 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController nameController = TextEditingController();
+    final TextEditingController surnameController = TextEditingController();
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController phoneController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+    final TextEditingController confirmPasswordController =
+        TextEditingController();
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -70,9 +78,16 @@ class SignUpScreen extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30),
-              child: SignUpForm(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: SignUpForm(
+                nameController: nameController,
+                surnameController: surnameController,
+                emailController: emailController,
+                phoneController: phoneController,
+                passwordController: passwordController,
+                confirmPasswordController: confirmPasswordController,
+              ),
             ),
             const SizedBox(
               height: 20,
@@ -97,15 +112,15 @@ class SignUpScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30),
               child: Text(
                 'Ou faça o login com:',
-                style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500)
-                    .copyWith(color: Colors.black),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
             const SizedBox(
