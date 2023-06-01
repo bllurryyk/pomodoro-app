@@ -1,6 +1,7 @@
+// ignore_for_file: use_build_context_synchronously, unused_local_variable
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:pomodoro/screens/home.dart';
 import 'package:pomodoro/screens/login.dart';
 import 'package:pomodoro/widgets/primary_button_method.dart';
 import 'package:pomodoro/widgets/checkbox.dart';
@@ -20,8 +21,7 @@ class SignUpScreen extends StatelessWidget {
     final TextEditingController confirmPasswordController =
         TextEditingController();
 
-    Future<void> _createAccount() async {
-      final String name = nameController.text;
+    Future<void> createAccount() async {
       final String email = emailController.text;
       final String password = passwordController.text;
 
@@ -139,7 +139,7 @@ class SignUpScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: PrimaryButton(
                 buttonText: 'Cadastrar',
-                method: _createAccount,
+                method: createAccount,
               ),
             ),
             const SizedBox(

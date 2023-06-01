@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable, use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,7 @@ class LogInScreen extends StatelessWidget {
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
 
-    Future<void> _login() async {
+    Future<void> login() async {
       try {
         String email = emailController.text.trim();
         String password = passwordController.text.trim();
@@ -132,7 +134,7 @@ class LogInScreen extends StatelessWidget {
                     ),
                     PrimaryButton(
                       buttonText: 'Login',
-                      method: _login,
+                      method: login,
                     ),
                     const SizedBox(
                       height: 20,
