@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Pomodoro',
+      title: 'Toolmato',
       theme: ThemeData(fontFamily: 'Poppins'),
       home: const LogInScreen(),
     );

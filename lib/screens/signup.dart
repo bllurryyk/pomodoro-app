@@ -1,13 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pomodoro/screens/home.dart';
 import 'package:pomodoro/screens/login.dart';
+import 'package:pomodoro/widgets/primary_button_method.dart';
 import 'package:pomodoro/widgets/checkbox.dart';
 import 'package:pomodoro/widgets/login_option.dart';
-import 'package:pomodoro/widgets/primary_button.dart';
 import 'package:pomodoro/widgets/signup_form.dart';
 
 class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({super.key});
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +19,38 @@ class SignUpScreen extends StatelessWidget {
     final TextEditingController passwordController = TextEditingController();
     final TextEditingController confirmPasswordController =
         TextEditingController();
+
+    Future<void> _createAccount() async {
+      final String name = nameController.text;
+      final String email = emailController.text;
+      final String password = passwordController.text;
+
+      try {
+        UserCredential userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => LogInScreen()),
+        );
+
+        // Você pode adicionar código aqui para salvar os detalhes adicionais do usuário, como nome, sobrenome, etc.
+
+        // Redirecione para a tela de Home após o cadastro bem-sucedido
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+          print('A senha é muito fraca.');
+        } else if (e.code == 'email-already-in-use') {
+          print('O e-mail já está sendo usado por outra conta.');
+        } else {
+          print('Erro durante o cadastro do usuário: ${e.message}');
+        }
+      } catch (e) {
+        print('Erro desconhecido durante o cadastro do usuário: $e');
+      }
+    }
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -102,11 +135,11 @@ class SignUpScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
               child: PrimaryButton(
                 buttonText: 'Cadastrar',
-                routeWidget: HomeScreen(),
+                method: _createAccount,
               ),
             ),
             const SizedBox(

@@ -1,15 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({
-    super.key,
+    Key? key,
     required this.nameController,
     required this.surnameController,
     required this.emailController,
     required this.phoneController,
     required this.passwordController,
     required this.confirmPasswordController,
-  });
+  }) : super(key: key);
 
   final TextEditingController nameController;
   final TextEditingController surnameController;
@@ -24,6 +25,12 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   bool _isObscure = true;
+
+  @override
+  void initState() {
+    super.initState();
+    Firebase.initializeApp();
+  }
 
   @override
   Widget build(BuildContext context) {
