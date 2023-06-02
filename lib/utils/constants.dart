@@ -20,12 +20,12 @@ class PomodoroSettings {
 
   static Map<PomodoroStatus, Color> statusColor = {
     PomodoroStatus.runningPomodoro: Colors.white,
-    PomodoroStatus.pausedPomodoro: Colors.green,
-    PomodoroStatus.runningShortBreak: Colors.blueAccent,
-    PomodoroStatus.pausedShortBreak: Colors.green,
-    PomodoroStatus.runningLongBreak: Colors.deepPurple,
-    PomodoroStatus.pausedLongBreak: Colors.green,
-    PomodoroStatus.setFinished: Colors.green,
+    PomodoroStatus.pausedPomodoro: Colors.white.withOpacity(0.5),
+    PomodoroStatus.runningShortBreak: Colors.white,
+    PomodoroStatus.pausedShortBreak: Colors.white.withOpacity(0.5),
+    PomodoroStatus.runningLongBreak: Colors.white,
+    PomodoroStatus.pausedLongBreak: Colors.white.withOpacity(0.5),
+    PomodoroStatus.setFinished: Colors.red.withOpacity(0.5),
   };
 
   static void updateSettings({
