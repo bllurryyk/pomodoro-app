@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro/screens/pomodoro.dart';
 import 'package:pomodoro/utils/constants.dart';
 import 'package:pomodoro/widgets/pomodoro_form.dart';
 import 'package:pomodoro/widgets/primary_button_on_pressed.dart';
