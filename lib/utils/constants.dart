@@ -25,7 +25,7 @@ class PomodoroSettings {
     PomodoroStatus.pausedShortBreak: Colors.white.withOpacity(0.5),
     PomodoroStatus.runningLongBreak: Colors.white,
     PomodoroStatus.pausedLongBreak: Colors.white.withOpacity(0.5),
-    PomodoroStatus.setFinished: Colors.red.withOpacity(0.5),
+    PomodoroStatus.setFinished: Colors.white.withOpacity(0.9),
   };
 
   static void updateSettings({
