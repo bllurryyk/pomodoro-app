@@ -4,9 +4,14 @@ import 'package:pomodoro/utils/constants.dart';
 import 'package:pomodoro/widgets/pomodoro_form.dart';
 import 'package:pomodoro/widgets/primary_button_on_pressed.dart';
 
-class PomodoroSettingsScreen extends StatelessWidget {
+class PomodoroSettingsScreen extends StatefulWidget {
   const PomodoroSettingsScreen({super.key});
 
+  @override
+  State<PomodoroSettingsScreen> createState() => _PomodoroSettingsScreenState();
+}
+
+class _PomodoroSettingsScreenState extends State<PomodoroSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final TextEditingController cyclesController = TextEditingController();
@@ -76,11 +81,8 @@ class PomodoroSettingsScreen extends StatelessWidget {
                           int.parse(longBreakTimeController.text) * 60,
                     );
                   }
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const PomodoroScreen()),
-                  );
+                  setState(() {});
+                  Navigator.pop(context);
                 },
               ),
             ),

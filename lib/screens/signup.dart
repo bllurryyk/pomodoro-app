@@ -1,57 +1,87 @@
 // ignore_for_file: use_build_context_synchronously, unused_local_variable
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:pomodoro/screens/check.dart';
 import 'package:pomodoro/screens/login.dart';
+import 'package:pomodoro/utils/toast_utils.dart';
 import 'package:pomodoro/widgets/primary_button_method.dart';
 import 'package:pomodoro/widgets/checkbox.dart';
 import 'package:pomodoro/widgets/login_option.dart';
 import 'package:pomodoro/widgets/signup_form.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final TextEditingController nameController = TextEditingController();
-    final TextEditingController surnameController = TextEditingController();
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController phoneController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
-    final TextEditingController confirmPasswordController =
-        TextEditingController();
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
 
-    Future<void> createAccount() async {
-      final String email = emailController.text;
-      final String password = passwordController.text;
+class _SignUpScreenState extends State<SignUpScreen> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController surnameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+  final _firebaseAuth = FirebaseAuth.instance;
 
-      try {
-        UserCredential userCredential =
-            await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: email,
-          password: password,
-        );
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => LogInScreen()),
-        );
+  Future<void> createUserInFirestore(String email) async {
+    final User? user = _firebaseAuth.currentUser;
+    final String? userId = user?.uid;
 
-        // Você pode adicionar código aqui para salvar os detalhes adicionais do usuário, como nome, sobrenome, etc.
-
-        // Redirecione para a tela de Home após o cadastro bem-sucedido
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'weak-password') {
-          print('A senha é muito fraca.');
-        } else if (e.code == 'email-already-in-use') {
-          print('O e-mail já está sendo usado por outra conta.');
-        } else {
-          print('Erro durante o cadastro do usuário: ${e.message}');
-        }
-      } catch (e) {
-        print('Erro desconhecido durante o cadastro do usuário: $e');
-      }
+    if (userId != null) {
+      await FirebaseFirestore.instance.collection('users').doc(userId).set({
+        'email': email,
+        'workTime': 25,
+        'shortBreak': 5,
+        'longBreak': 15,
+        'cycles': 4,
+      });
     }
+  }
 
+  Future<void> createAccount() async {
+    final String email = emailController.text;
+    final String password = passwordController.text;
+
+    try {
+      UserCredential userCredential =
+          await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      userCredential.user!.updateDisplayName(nameController.text);
+      await createUserInFirestore(email);
+      ToastUtils.showSuccessToast('Cadastro realizado com sucesso!');
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const ChecarPage(),
+          ),
+          (route) => false);
+
+      // Redirecione para a tela de Home após o cadastro bem-sucedido
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        ToastUtils.showErrorToast('A senha é muito fraca.');
+      } else if (e.code == 'email-already-in-use') {
+        ToastUtils.showErrorToast(
+            'O e-mail já está sendo usado por outra conta.');
+      } else {
+        ToastUtils.showErrorToast(
+            'Erro durante o cadastro do usuário: ${e.message}');
+      }
+    } catch (e) {
+      ToastUtils.showErrorToast(
+          'Erro desconhecido durante o cadastro do usuário: $e');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(

@@ -6,12 +6,22 @@ import 'package:flutter/material.dart';
 import 'package:pomodoro/screens/home.dart';
 import 'package:pomodoro/screens/reset_password.dart';
 import 'package:pomodoro/screens/signup.dart';
+import 'package:pomodoro/utils/toast_utils.dart';
 import 'package:pomodoro/widgets/login_form.dart';
 import 'package:pomodoro/widgets/primary_button_method.dart';
 import 'package:pomodoro/widgets/login_option.dart';
 
-class LogInScreen extends StatelessWidget {
-  const LogInScreen({Key? key});
+class LogInScreen extends StatefulWidget {
+  const LogInScreen({super.key});
+
+  @override
+  State<LogInScreen> createState() => _LogInScreenState();
+}
+
+class _LogInScreenState extends State<LogInScreen> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final _firebaseAuth = FirebaseAuth.instance;
 
   Future<void> _initializeFirebase() async {
     await Firebase.initializeApp();
@@ -19,30 +29,25 @@ class LogInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
-
     Future<void> login() async {
       try {
         String email = emailController.text.trim();
         String password = passwordController.text.trim();
 
         UserCredential userCredential =
-            await FirebaseAuth.instance.signInWithEmailAndPassword(
+            await _firebaseAuth.signInWithEmailAndPassword(
           email: email,
           password: password,
         );
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => HomeScreen(),
+            builder: (context) => const HomeScreen(),
           ),
         );
-
-        // Login successful, you can navigate to the desired screen here
-      } catch (e) {
-        // Handle login error here
-        print('Login error: $e');
+      } on FirebaseAuthException catch (e) {
+        String erro = e.code;
+        ToastUtils.showErrorToast('Login error: $erro');
       }
     }
 

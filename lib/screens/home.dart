@@ -1,29 +1,70 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:pomodoro/screens/check.dart';
 import 'package:pomodoro/screens/pomodoro.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _TimerState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _TimerState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> {
+  final _firebaseAuth = FirebaseAuth.instance;
+  late String nome = '';
+  late String email = '';
+
+  getUser() async {
+    User? user = _firebaseAuth.currentUser;
+    if (user != null) {
+      nome = user.displayName!;
+      email = user.email!;
+    }
+  }
+
+  logOut() async {
+    await _firebaseAuth.signOut().then(
+          (user) => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ChecarPage(),
+            ),
+          ),
+        );
+  }
+
+  @override
+  void initState() {
+    getUser();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(
-        leading: const Icon(
-          Icons.menu,
-          color: Colors.red,
-        ),
-        backgroundColor: Colors.white,
-        shadowColor: Colors.transparent,
-      ),
-      backgroundColor: Colors.white,
+      drawer: Drawer(
+          child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          UserAccountsDrawerHeader(
+            accountName: Text(nome),
+            accountEmail: Text(email),
+          ),
+          ListTile(
+            dense: true,
+            title: const Text('Sair'),
+            trailing: const Icon(Icons.exit_to_app_rounded),
+            onTap: (() {
+              logOut();
+            }),
+          )
+        ],
+      )),
+      appBar: AppBar(backgroundColor: Colors.red),
       body: SafeArea(
         child: Center(
           child: Column(
