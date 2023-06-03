@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pomodoro/utils/constants.dart';
 import 'package:pomodoro/widgets/pomodoro_form.dart';
@@ -11,6 +13,50 @@ class PomodoroSettingsScreen extends StatefulWidget {
 }
 
 class _PomodoroSettingsScreenState extends State<PomodoroSettingsScreen> {
+  Future<void> updateCycle(int cycle) async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final String? userId = user?.uid;
+    if (userId != null) {
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .update({'cycles': cycle});
+    }
+  }
+
+  Future<void> updateWorkTime(int workTime) async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final String? userId = user?.uid;
+    if (userId != null) {
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .update({'workTime': workTime});
+    }
+  }
+
+  Future<void> updateShortBreak(int shortBreak) async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final String? userId = user?.uid;
+    if (userId != null) {
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .update({'shortBreak': shortBreak});
+    }
+  }
+
+  Future<void> updateLongBreak(int longBreak) async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final String? userId = user?.uid;
+    if (userId != null) {
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .update({'longBreak': longBreak});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final TextEditingController cyclesController = TextEditingController();
@@ -21,6 +67,9 @@ class _PomodoroSettingsScreenState extends State<PomodoroSettingsScreen> {
         TextEditingController();
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,26 +111,39 @@ class _PomodoroSettingsScreenState extends State<PomodoroSettingsScreen> {
                     PomodoroSettings.updateSettings(
                       newCyclesController: int.parse(cyclesController.text),
                     );
+                    updateCycle(int.parse(cyclesController.text));
                   }
                   if (workTimeController.text.isNotEmpty) {
                     PomodoroSettings.updateSettings(
                       newWorkTime: int.parse(workTimeController.text) * 60,
                     );
+                    updateWorkTime(int.parse(workTimeController.text));
                   }
                   if (shortBreakTimeController.text.isNotEmpty) {
                     PomodoroSettings.updateSettings(
                       newShortBreakTime:
                           int.parse(shortBreakTimeController.text) * 60,
                     );
+                    updateShortBreak(int.parse(shortBreakTimeController.text));
                   }
                   if (longBreakTimeController.text.isNotEmpty) {
                     PomodoroSettings.updateSettings(
                       newLongBreakTime:
                           int.parse(longBreakTimeController.text) * 60,
                     );
+                    updateLongBreak(int.parse(longBreakTimeController.text));
                   }
-                  setState(() {});
-                  Navigator.pop(context);
+                  setState(() {
+                    PomodoroSettings.workTime =
+                        int.parse(workTimeController.text) * 60;
+                    PomodoroSettings.shortBreakTime =
+                        int.parse(shortBreakTimeController.text) * 60;
+                    PomodoroSettings.longBreakTime =
+                        int.parse(longBreakTimeController.text) * 60;
+                    PomodoroSettings.cyclesController =
+                        int.parse(cyclesController.text);
+                  });
+                  Navigator.pop(context, true);
                 },
               ),
             ),

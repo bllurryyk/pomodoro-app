@@ -3,8 +3,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:pomodoro/model/pomodoro_model.dart';
 import 'package:pomodoro/screens/check.dart';
 import 'package:pomodoro/screens/login.dart';
+import 'package:pomodoro/utils/constants.dart';
 import 'package:pomodoro/utils/toast_utils.dart';
 import 'package:pomodoro/widgets/primary_button_method.dart';
 import 'package:pomodoro/widgets/checkbox.dart';
@@ -33,12 +35,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final String? userId = user?.uid;
 
     if (userId != null) {
-      await FirebaseFirestore.instance.collection('users').doc(userId).set({
-        'email': email,
-        'workTime': 25,
-        'shortBreak': 5,
-        'longBreak': 15,
-        'cycles': 4,
+      final docUser =
+          FirebaseFirestore.instance.collection('users').doc(userId);
+      final pomodoro = PomodoroModel(
+        workTime: 25,
+        shortBreak: 5,
+        longBreak: 15,
+        cycles: 4,
+      );
+      final jason = pomodoro.toJason();
+      await docUser.set(jason);
+      setState(() {
+        PomodoroSettings.workTime = 25 * 60;
+        PomodoroSettings.shortBreakTime = 5 * 60;
+        PomodoroSettings.longBreakTime = 15 * 60;
+        PomodoroSettings.cyclesController = 4;
       });
     }
   }

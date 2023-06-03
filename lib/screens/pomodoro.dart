@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:pomodoro/model/pomodoro_status.dart';
+import 'package:pomodoro/model/pomodoro_model.dart';
 import 'package:pomodoro/screens/pomodoro_settings.dart';
 import 'package:pomodoro/utils/constants.dart';
 import 'package:pomodoro/widgets/progress_icon.dart';
@@ -45,14 +45,16 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
             ),
             child: IconButton(
               icon: const Icon(Icons.settings_outlined),
-              onPressed: () {
-                setState(() {});
-                Navigator.push(
+              onPressed: () async {
+                bool result = await Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const PomodoroSettingsScreen(),
                   ),
                 );
+                if (result) {
+                  setState(() {});
+                }
               },
             ),
           )
