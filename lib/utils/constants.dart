@@ -14,7 +14,7 @@ class PomodoroSettings {
     PomodoroStatus.runningLongBreak: 'Pausa longa, hora de relaxar!',
     PomodoroStatus.pausedLongBreak: 'Vamos fazer uma pausa?',
     PomodoroStatus.setFinished:
-        'Parabéns, você merece uma longa pausa, pronto para começar?',
+        'Parabéns, você completou todo o ciclo, pronto para começar?',
   };
 
   static Map<PomodoroStatus, Color> statusColor = {
