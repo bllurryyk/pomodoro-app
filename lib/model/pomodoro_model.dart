@@ -27,10 +27,4 @@ class PomodoroModel {
         'longBreak': longBreak,
         'cycles': cycles,
       };
-
-  static PomodoroModel fromJson(Map<String, dynamic> data) => PomodoroModel(
-      workTime: data['workTime'],
-      shortBreak: data['shortBreak'],
-      longBreak: data['longBreak'],
-      cycles: data['cycles']);
 }
