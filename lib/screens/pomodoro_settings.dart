@@ -133,16 +133,6 @@ class _PomodoroSettingsScreenState extends State<PomodoroSettingsScreen> {
                     );
                     updateLongBreak(int.parse(longBreakTimeController.text));
                   }
-                  setState(() {
-                    PomodoroSettings.workTime =
-                        int.parse(workTimeController.text) * 60;
-                    PomodoroSettings.shortBreakTime =
-                        int.parse(shortBreakTimeController.text) * 60;
-                    PomodoroSettings.longBreakTime =
-                        int.parse(longBreakTimeController.text) * 60;
-                    PomodoroSettings.cyclesController =
-                        int.parse(cyclesController.text);
-                  });
                   Navigator.pop(context, true);
                 },
               ),
