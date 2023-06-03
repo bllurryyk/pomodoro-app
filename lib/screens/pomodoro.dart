@@ -52,7 +52,9 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                   ),
                 );
                 if (result) {
-                  setState(() {});
+                  setState(() {
+                    remainingTime = PomodoroSettings.workTime;
+                  });
                 }
               },
             ),

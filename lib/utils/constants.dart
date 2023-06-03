@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class PomodoroSettings {
-  static int workTime = 0;
-  static int shortBreakTime = 0;
-  static int longBreakTime = 0;
-  static int cyclesController = 0;
+  static int workTime = 25 * 60;
+  static int shortBreakTime = 5 * 60;
+  static int longBreakTime = 15 * 60;
+  static int cyclesController = 4;
 
   static Map<PomodoroStatus, String> statusDescription = {
     PomodoroStatus.runningPomodoro: 'Hora de se concentrar!',
