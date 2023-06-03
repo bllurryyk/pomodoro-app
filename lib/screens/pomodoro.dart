@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:pomodoro/model/pomodoro_model.dart';
 import 'package:pomodoro/screens/pomodoro_settings.dart';
 import 'package:pomodoro/utils/constants.dart';
 import 'package:pomodoro/widgets/progress_icon.dart';

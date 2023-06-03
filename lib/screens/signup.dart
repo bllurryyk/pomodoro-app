@@ -3,7 +3,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:pomodoro/model/pomodoro_model.dart';
 import 'package:pomodoro/screens/check.dart';
 import 'package:pomodoro/screens/login.dart';
 import 'package:pomodoro/utils/constants.dart';
